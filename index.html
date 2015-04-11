@@ -1,0 +1,110 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>Fourier Transform</title>
+    <style>
+      body {
+        font-family: monospace;
+      }
+
+      #components input {
+        width: 45px;
+      }
+
+      .component-template, .fourier-template {
+        display: none;
+      }
+
+      .sine-value, .cosine-value {
+        text-align: right;
+        display: inline-block;
+        width: 40px;
+      }
+
+      canvas {
+        float: left;
+      }
+
+      #components {
+        clear: left;
+      }
+
+      .description {
+        padding-top: 1em;
+        clear: left;
+      }
+
+      #components, #controls, #fouriers {
+        width: 400px;
+        float: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas"></canvas>
+
+      <div id="components">
+        <h2>Spectral components</h2>
+      </div>
+
+      <div id="controls">
+        <h2>Controls</h2>
+        Component view<input checked=checked type="radio" name="mode" value="components">
+        Fourier view<input type="radio" name="mode" value="fourier">
+
+      </div>
+
+      <div id="fouriers">
+        <h2>Fourier components</h2>
+      </div>
+
+    </div>
+
+    <div class="component-template">
+      <span class="number"></span>.
+      Amplitude <input class="amp" type="number" min=0 max=0.5 step=0.05 value=0>
+      Offset <input class="offset" type="number" min=-2 max=2 step=0.05 value=0> &pi; radians
+    </div>
+
+    <div class="fourier-template">
+      <span class="number"></span>.
+      Sine  <span class="sine-value"></span> <input type="radio" name="fourier" value="sine">
+      Cosine <span class="cosine-value"></span> <input type="radio" name="fourier" value="cosine">
+      Magnitude <span class="magnitude"></span> 
+    </div>
+
+    <div class="description">
+      <p>This is a visualization of a discrete fourier transform. In "Component view" mode,
+      you can select the spectral components of your signal, and view the summed graph.
+      The lines show the components and the filled curve shows the sum of these components.
+      You can also set the offset of each component, in multiples of &pi; radians.</p>
+
+      <p>In "Fourier view" mode, you can individually visualize the 8 sine and 8 cosine
+      components, and the multiplication of these components with the signal created in
+      "Component view" mode. The multiplication of the two signals is shows as the filled
+      curve.</p>
+
+      <p>Each term of a discrete fourier transform is the sum of multiplying samples of the
+      signal by integer multiples of sine and cosine waves of a base frequency.
+      When the graph of the multiplied waveforms is mostly above the center line, this means
+      the sum of the products will be positive. If it's mostly below, the sum will be negative.
+      If there's as much above as below, the sum will be zero.<p>
+
+      <p>The discrete fourier transform works because multiplying a sine or cosine wave
+      of a particular frequency with a signal not containing that frequency yields a zero
+      sum. You can prove this to yourself by turning up all the amplitudes except for one
+      frequency, say 5, then viewing the sine and cosine fourier components for that frequency.
+      You'll see that the resulting waveform has as much above the center line as below.</p>
+
+      <p>If you play with the offset values, you can see how the values of the sine and
+      cosine components of the fourier transform vary. The ratio of these two components
+      specifies the phase of each spectral component. The magnitude (the last value
+      in the fourier components section) remains unchanged.</p>
+    </div>
+  </body>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="drawing.js"></script>
+  <script src="dft.js"></script>
+</html>
